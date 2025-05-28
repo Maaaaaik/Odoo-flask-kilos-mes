@@ -3,6 +3,7 @@ import xmlrpc.client
 from datetime import datetime, date
 import calendar
 import os
+import re  # ¡Importante: el módulo para expresiones regulares!
 
 app = Flask(__name__)
 
@@ -69,8 +70,8 @@ def obtener_kilos_por_mes_csv():
         kilos_por_sucursal_mensual = {}
 
         for order in orders:
-            # Limpiar el nombre de la sucursal de paréntesis y espacios extra
-            nombre_sucursal = order['config_id'][1].replace(/\s*\(.*\)/, '').strip()
+            # ¡Línea corregida! Usando re.sub para expresiones regulares en Python
+            nombre_sucursal = re.sub(r'\s*\(.*\)', '', order['config_id'][1]).strip()
             total_kilos = order.get('x_studio_float_field_1u1_1irfgb3un', 0.0)
 
             if total_kilos > 0:
